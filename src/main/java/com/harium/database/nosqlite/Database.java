@@ -2,12 +2,10 @@ package com.harium.database.nosqlite;
 
 import android.content.Context;
 
-import com.harium.database.model.BaseDAO;
-
 import java.util.Date;
 import java.util.List;
 
-public class Database implements BaseDAO<Data, Context> {
+public class Database {
 
     public static Context context;
     private static SQLiteDatabaseAndroidModule module;
@@ -16,30 +14,25 @@ public class Database implements BaseDAO<Data, Context> {
         module = new SQLiteDatabaseAndroidModule(context);
     }
 
-    @Override
     public void init(Context connection) {
         module = new SQLiteDatabaseAndroidModule(connection);
     }
 
-    @Override
     public List<Data> queryAll() {
         return module.queryAll();
     }
 
-    @Override
     public int create(Data item) {
         item.setCreatedAt(new Date().getTime());
         item.setUpdatedAt(new Date().getTime());
         return module.create(item);
     }
 
-    @Override
     public int update(Data item) {
         item.setUpdatedAt(new Date().getTime());
         return module.update(item);
     }
 
-    @Override
     public int delete(Data model) {
         return module.delete(model);
     }
@@ -62,7 +55,6 @@ public class Database implements BaseDAO<Data, Context> {
         return null;
     }
 
-    @Override
     public Class<Data> getKlass() {
         return Data.class;
     }
